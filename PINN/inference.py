@@ -14,3 +14,7 @@ prediction = model.predict(torch.tensor([input_value]))
 # Write the prediction to a temporary file
 with open("/tmp/model_output.txt", "w") as file:
     file.write(str(prediction.item()))
+
+
+#please work
+    
