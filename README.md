@@ -2,7 +2,7 @@
 
 ## Overview
 
-This C++ project is focused on simulating particle dynamics using the SFML (Simple and Fast Multimedia Library). It features particle creation, collision detection and response, wall interactions, and utilizes an external Python-based machine learning model for certain physics calculations.
+This project is focused on simulating particle dynamics using the SFML (Simple and Fast Multimedia Library) while using a physics informed neural network (PINN) to approximate the collision equations. It features particle creation, collision detection and response, wall interactions, and utilizes an external Python-based machine learning model for certain physics calculations.
 
 ## Key Features
 
