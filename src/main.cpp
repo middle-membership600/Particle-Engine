@@ -5,6 +5,33 @@
 #include <cmath>
 #include "particle.hpp"
 #include "forces.hpp"
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <cstdlib>
+#include <array> // Include for std::array
+
+float readPrediction() {
+    std::ifstream file("/tmp/model_output.txt");
+    std::string line;
+    if (file.is_open() && std::getline(file, line)) {
+        file.close();
+        return std::stof(line);
+    } else {
+        throw std::runtime_error("Unable to read the prediction file.");
+    }
+}
+
+float callPINNModel(float input) {
+    std::string command = "python PINN/inference.py " + std::to_string(input);
+    int result = system(command.c_str());
+    if (result != 0) {
+        throw std::runtime_error("Failed to run python script.");
+    }
+    return readPrediction();
+}
+
 
 //cmon work
 const int cellWidth = 100;
@@ -39,10 +66,10 @@ void checkAndBounceOffWalls(Particle& particle, float windowWidth, float windowH
 
     // Check for collision with top and bottom walls
     if (particle[1] - radius < 0) {
-        particle.setVelocityY( -particle.getVelocityY() * restitution);  // Apply restitution to vertical velocity
+        particle.setVelocityY(callPINNModel(particle.getVelocityY()) * restitution);  // Apply restitution to vertical velocity
         particle[1] = radius;  // Adjust position to be just outside the wall
     } else if (particle[1] + radius > windowHeight) {
-        particle.setVelocityY( -particle.getVelocityY() * restitution);  // Apply restitution to vertical velocity
+        particle.setVelocityY(callPINNModel(particle.getVelocityY()) * restitution);  // Apply restitution to vertical velocity
         particle[1] = windowHeight - radius;  // Adjust position to be just outside the wall
     }
 }
@@ -125,7 +152,7 @@ int main() {
 
     // Create a vector of particles
     // std::vector<Particle> particles;
-    for (int i = 0; i < 1000; ++i) {
+    for (int i = 0; i < 1; ++i) {
     bool positionFound = false;
     Particle newParticle;
 
