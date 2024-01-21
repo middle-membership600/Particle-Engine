@@ -1,3 +1,62 @@
+# Project Description
+
+## Overview
+
+This C++ project is focused on simulating particle dynamics using the SFML (Simple and Fast Multimedia Library). It features particle creation, collision detection and response, wall interactions, and utilizes an external Python-based machine learning model for certain physics calculations.
+
+## Key Features
+
+1. **Particle Simulation**: The core of this project is the simulation of particle movements and interactions within a defined space.
+
+2. **Collision Detection and Response**: Implements efficient collision detection between particles and their environment, and calculates the resulting changes in motion.
+
+3. **Wall Interactions**: Particles interact with wall boundaries, exhibiting behaviors like bouncing off with a certain restitution.
+
+4. **Integration with Python ML Model**: Utilizes a Python script for advanced calculations (like altering particle velocities upon collision with walls), demonstrating the integration of C++ and Python in a single project.
+
+5. **Dynamic Grid-based Space Partitioning**: The space is divided into a grid to optimize collision checking, reducing the number of comparisons required.
+
+6. **SFML for Graphics and Window Management**: Uses SFML for rendering particles and handling window events.
+
+## Components
+
+### 1. Particle System
+   - `Particle` class handles individual particle properties and behaviors.
+   - `particles`: A vector of `Particle` objects representing all particles in the simulation.
+
+### 2. Collision Handling
+   - `isColliding`: Checks if two particles are colliding.
+   - `resolveCollision`: Resolves the collision between two particles.
+   - `isOverlapping`: Checks if a new particle overlaps with existing ones.
+   - `checkAndBounceOffWalls`: Manages particle-wall collisions.
+
+### 3. Machine Learning Model Integration
+   - `callPINNModel`: Calls a Python script to run a machine learning model.
+   - `readPrediction`: Reads the output of the ML model from a file.
+
+### 4. Grid System
+   - `grid`: A 3D vector grid to optimize spatial queries for collision detection.
+   - `updateGrid`: Updates the grid with the current particle positions.
+
+### 5. Rendering and Environment
+   - `RenderWall`: Function to render walls in the simulation.
+   - `wall`: A `sf::RectangleShape` representing the wall in the simulation.
+
+### 6. Main Simulation Loop
+   - The main loop handles event processing, updates particle states, performs collision detection, and renders the particles and walls.
+
+## Dependencies
+- SFML: For graphics and window handling.
+- Standard C++ Libraries: `<vector>`, `<cmath>`, `<iostream>`, `<fstream>`, `<sstream>`, `<cstdlib>`, `<array>`.
+- Custom Headers: `particle.hpp`, `forces.hpp`.
+
+## Building and Running
+The project is likely set up to be built with CMake, considering the use of SFML. Instructions for building and running the project should be provided separately, detailing the steps for compiling and executing the code, along with any required environment setup, especially for the integration with the Python script.
+
+---
+
+This description provides a high-level overview of the project, focusing on its major components and functionalities. For a comprehensive understanding, diving into each component's implementation would be necessary.
+
 # CMake SFML Project Template
 
 This repository template should allow for a fast and hassle-free kick start of your next SFML project using CMake.
