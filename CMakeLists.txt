@@ -10,15 +10,28 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
+# Find Python
+find_package(Python3 COMPONENTS Development REQUIRED)
+
 add_executable(MarticlePhysics src/main.cpp)
+
+# Link SFML libraries
 target_link_libraries(MarticlePhysics PRIVATE sfml-graphics)
+
+# Link Python libraries
+target_link_libraries(MarticlePhysics PRIVATE Python3::Python)
+
+# Include Python headers
+target_include_directories(MarticlePhysics PRIVATE ${Python3_INCLUDE_DIRS})
+
+# Set C++ standard
 target_compile_features(MarticlePhysics PRIVATE cxx_std_17)
 
 if(WIN32)
     add_custom_command(
         TARGET MarticlePhysics
         COMMENT "Copy OpenAL DLL"
-        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:CMakeSFMLProject>
+        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:MarticlePhysics>
         VERBATIM)
 endif()
 
