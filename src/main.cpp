@@ -72,7 +72,7 @@ bool isColliding(Particle& particle1, Particle& particle2) {
     float dist = sqrt(pow((particle1[0] - particle2[0]), 2) + pow((particle1[1] - particle2[1]), 2));
     return dist < particle1.getRadius() + particle2.getRadius();
 }
-
+// Only this resolution is handled by an inference script at the moment.
 void checkAndBounceOffWalls(Particle& particle, float windowWidth, float windowHeight) {
     float radius = particle.getRadius();  // Particle radius
     float restitution = 0.9f; // Coefficient of restitution
